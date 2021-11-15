@@ -32,7 +32,7 @@ func main() {
 	//申请一个续租
 	lease = clientv3.NewLease(client)
 
-	//申请一个10s续租
+	//10秒后自动过期
 	if leaseGrantResp, err = lease.Grant(context.TODO(), 10); err != nil {
 		fmt.Println(err)
 		return
@@ -66,6 +66,7 @@ func main() {
 	}
 	fmt.Println("write ok:", putResp.Header.Revision)
 
+	//周期查看是否过期
 	for {
 		if getResp, err = kv.Get(context.TODO(), "/cron/lock/job1"); err != nil {
 			fmt.Println(err)

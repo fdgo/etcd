@@ -24,7 +24,7 @@ func main() {
 		return
 	}
 	kv = clientv3.NewKV(client)
-	if putResp, err = kv.Put(context.TODO(), "/cron/jobs/job2", "bye22", clientv3.WithPrevKV()); err != nil {
+	if putResp, err = kv.Put(context.TODO(), "/cron/jobs/job2", "bye2", clientv3.WithPrevKV()); err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Println(putResp.Header.Revision)

@@ -26,7 +26,20 @@ func main() {
 		return
 	}
 	kv = clientv3.NewKV(client)
-	if delResp, err = kv.Delete(context.TODO(), "/cron/jobs/job2", clientv3.WithPrevKV()); err != nil {
+
+	//delete one
+	//if delResp, err = kv.Delete(context.TODO(), "/cron/jobs/job2", clientv3.WithPrevKV()); err != nil {
+	//	fmt.Println(err)
+	//} else {
+	//	if len(delResp.PrevKvs) != 0 {
+	//		for _, kvpair = range delResp.PrevKvs {
+	//			fmt.Println("has deleted: ", string(kvpair.Key), string(kvpair.Value))
+	//		}
+	//	}
+	//}
+
+	// delete many keys begin with /cron/jobs/
+	if delResp, err = kv.Delete(context.TODO(), "/cron/jobs/", clientv3.WithPrefix()); err != nil {
 		fmt.Println(err)
 	} else {
 		if len(delResp.PrevKvs) != 0 {
